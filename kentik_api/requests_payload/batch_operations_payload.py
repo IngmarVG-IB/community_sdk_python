@@ -10,7 +10,6 @@ class BatchRequest:
     class Upsert:
         @dataclass()
         class Criterion:
-
             direction: str
             addr: List[str]
 
@@ -19,7 +18,6 @@ class BatchRequest:
 
     @dataclass()
     class Delete:
-
         value: str
 
     replace_all: bool
@@ -31,7 +29,6 @@ class BatchRequest:
 
 @dataclass()
 class BatchResponse:
-
     message: str
     guid: str
 
@@ -45,19 +42,16 @@ class BatchResponse:
 class BatchStatusResponse:
     @dataclass()
     class CustomDimension:
-
         id: int
         name: str
 
     @dataclass()
     class User:
-
         id: int
         email: str
 
     @dataclass()
     class Upserts:
-
         total: int
         applied: int
         invalid: int
@@ -66,7 +60,6 @@ class BatchStatusResponse:
 
     @dataclass()
     class Deletes:
-
         total: int
         applied: int
         unchanged: int
@@ -74,7 +67,6 @@ class BatchStatusResponse:
 
     @dataclass()
     class ReplaceAll:
-
         requested: bool
         deletes_performed: int
         successful: bool

@@ -66,7 +66,7 @@ def test_get_all_plans_success() -> None:
     plans = plans_api.get_all()
 
     # then request properly formed
-    assert connector.last_url_path == f"/plans"
+    assert connector.last_url_path == "/plans"
     assert connector.last_method == APICallMethods.GET
     assert connector.last_payload is None
 

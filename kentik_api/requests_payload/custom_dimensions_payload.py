@@ -71,7 +71,6 @@ class GetAllResponse(List[GetResponse]):
 
 @dataclass
 class CreateRequest:
-
     custom_dimension: CustomDimensionPayload
 
     @classmethod
@@ -85,7 +84,6 @@ CreateResponse = GetResponse
 
 @dataclass
 class UpdateRequest:
-
     custom_dimension: CustomDimensionPayload
 
     @classmethod

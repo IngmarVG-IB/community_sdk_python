@@ -43,13 +43,8 @@ class PermissiveEnumMeta(EnumMeta):
                 start=start,
             )
         try:
-            return super().__call__(
-                value,
-                names=names,
-                module=module,
-                qualname=qualname,
-                type=type,
-                start=start,
-            )
+            # Value lookup only. Do not forward ``names=None``: since Python 3.15 an explicit
+            # ``names`` argument (even None) selects the functional API instead of a lookup.
+            return super().__call__(value)
         except ValueError:
             return value

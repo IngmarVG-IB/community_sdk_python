@@ -1,0 +1,43 @@
+{
+  "schema_source": {
+    "repo": "github.com/kentik/api-schema-public",
+    "ref": "5a262a75ff5c32fe70be37af4e0262fcc30bf4fb",
+    "note": "legacy protos (synthetics v202202 was removed from api-schema-public in 702809b)"
+  },
+  "services": [
+    {
+      "service": "synthetics",
+      "version": "v202202",
+      "stability": "stable",
+      "status": "deprecated",
+      "transport": "grpc",
+      "surface": ["kentik_api.KentikAPI.synthetics (KentikSynthClient)"]
+    },
+    {
+      "service": "cloud_export",
+      "version": "v202101beta1",
+      "stability": "beta",
+      "status": "deprecated",
+      "transport": "grpc",
+      "surface": ["kentik_api.KentikAPI.cloud_export (KentikCloudExportClient)"]
+    },
+    {
+      "service": "core",
+      "version": "v202303",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "grpc",
+      "surface": ["message types only (kentik_api.generated.kentik.core.v202303)"]
+    }
+  ],
+  "legacy": [
+    {
+      "api": "v5",
+      "status": "deprecated",
+      "surface": [
+        "alerting", "batch", "custom_applications", "custom_dimensions", "device_labels", "devices",
+        "my_kentik_portal", "plans", "query", "saved_filters", "sites", "tags", "users"
+      ]
+    }
+  ]
+}

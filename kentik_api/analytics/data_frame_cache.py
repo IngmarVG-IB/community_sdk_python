@@ -25,7 +25,7 @@ def dedup_data_frame(df: pd.DataFrame, columns: List[str]) -> pd.DataFrame:
     if missing:
         _m = ",".join(missing)
         raise RuntimeError(
-            f"dedup_data_frame: columns '{_m}' not in input DataFrame " f"(available columns: '{out.columns}')"
+            f"dedup_data_frame: columns '{_m}' not in input DataFrame (available columns: '{out.columns}')"
         )
     out.set_index(columns, inplace=True)
     out.sort_index(inplace=True)

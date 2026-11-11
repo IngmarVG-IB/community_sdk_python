@@ -86,7 +86,6 @@ class GetAllResponse(List[GetResponse]):
 
 @dataclass
 class CreateRequest:
-
     custom_application: CustomApplicationPayload
 
     @classmethod
@@ -105,7 +104,6 @@ CreateResponse = GetResponse
 
 @dataclass
 class UpdateRequest:
-
     custom_application: CustomApplicationPayload
 
     @classmethod

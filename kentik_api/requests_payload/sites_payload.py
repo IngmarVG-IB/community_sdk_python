@@ -125,7 +125,6 @@ class UpdateResponse:
 
 @dataclass
 class CreateRequest:
-
     site: SitePayload
 
     @classmethod
@@ -141,7 +140,6 @@ class CreateRequest:
 
 @dataclass
 class UpdateRequest:
-
     site: SitePayload
 
     @classmethod

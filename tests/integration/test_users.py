@@ -265,9 +265,11 @@ def test_get_user_fails_when_invalid_response_body_received(kentik_api) -> None:
     assert len(httpretty.last_request().body) == 0
 
 
-def test_get_user_fails_when_server_is_down(kentik_api) -> None:
+def test_get_user_fails_when_server_is_down() -> None:
+    # Port 1 on loopback refuses connections immediately: no DNS lookup, no network access.
+    api = KentikAPI(DUMMY_AUTH_EMAIL, DUMMY_TOKEN, api_host="127.0.0.1:1", retry_strategy=Retry(total=0))
     with pytest.raises(KentikAPIError) as exc_info:
-        kentik_api.users.get(DUMMY_USER_ID)
+        api.users.get(DUMMY_USER_ID)
 
     assert "Failed to establish a new connection" in str(exc_info.value)
 

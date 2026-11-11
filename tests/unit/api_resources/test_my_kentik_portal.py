@@ -69,7 +69,7 @@ def test_get_tenant_success() -> None:
     tenant = my_kentik_portal_api.get(tenant_id)
 
     # then
-    assert connector.last_url_path == f"/mykentik/tenant/577"
+    assert connector.last_url_path == "/mykentik/tenant/577"
     assert connector.last_method == APICallMethods.GET
     assert connector.last_payload is None
 
@@ -94,7 +94,7 @@ def test_delete_tenant_user_success() -> None:
     delete_successful = my_kentik_portal_api.delete_tenant_user(tenant_id, tenant_user_id)
 
     # then
-    assert connector.last_url_path == f"/mykentik/tenant/577/user/148099"
+    assert connector.last_url_path == "/mykentik/tenant/577/user/148099"
     assert connector.last_method == APICallMethods.DELETE
     assert connector.last_payload is None
     assert delete_successful is True

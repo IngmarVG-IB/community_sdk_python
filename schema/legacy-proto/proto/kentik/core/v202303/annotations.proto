@@ -1,0 +1,61 @@
+// Error information
+
+syntax = "proto3";
+
+package kentik.core.v202303;
+option go_package = "github.com/kentik/api-schema-public/gen/go/kentik/core/v202303;kentik_core";
+
+import "google/protobuf/descriptor.proto";
+
+// {{.Name}}
+enum ServiceVisibility {
+  // private services not served by API gateway
+  SERVICE_VISIBILITY_PRIVATE = 0;
+  // non-public services served by API gateway
+  SERVICE_VISIBILITY_PROTECTED = 1;
+  // internal services (not accessible from the internet)
+  SERVICE_VISIBILITY_INTERNAL = 2;
+  // public customer facing services
+  SERVICE_VISIBILITY_PUBLIC = 3;
+  // public facing endpoints that are only used by kentik services
+  SERVICE_VISIBILITY_PUBLIC_KENTIK = 4;
+}
+
+// {{.Name}}
+enum MethodVisibility {
+  // when unspecified, method will use service visibility
+  METHOD_VISIBILITY_UNSPECIFIED = 0;
+  // private services not served by API gateway
+  METHOD_VISIBILITY_PRIVATE = 1;
+  // non-public services served by API gateway
+  METHOD_VISIBILITY_PROTECTED = 2;
+  // internal services (not accessible from the internet)
+  METHOD_VISIBILITY_INTERNAL = 3;
+  // public customer facing services
+  METHOD_VISIBILITY_PUBLIC = 4;
+  // public facing endpoints that are only used by kentik services
+  METHOD_VISIBILITY_PUBLIC_KENTIK = 5;
+}
+
+extend google.protobuf.ServiceOptions {
+  // auth scope for this service
+  string service_scope = 5501;
+  // private_service indicates that the service is not handled by the API gateway (deprecated)
+  bool private_service = 5503;
+  // visibility provides label allowing to guid publishing of schemas and placement of service on API gateways
+  ServiceVisibility visibility = 5506;
+}
+
+extend google.protobuf.MethodOptions {
+  // auth scope for this service
+  string method_scope = 5502;
+  // private_method indicates that this method is not publicly available
+  bool private_method = 5504;
+  // method classification to identify areas of functionality (used for metrics etc.)
+  string method_category = 5505;
+  // method permission string used by the RBAC system
+  // API user must posses permission covering the method permission in order to be authorized to invoke the method
+  string method_permission = 5506;
+  // method_visibility provides label allowing api owners optionally define a different visibility for an rpc
+  MethodVisibility method_visibility = 5507;
+}

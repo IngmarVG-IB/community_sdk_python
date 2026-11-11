@@ -12,7 +12,6 @@ from kentik_api.requests_payload.conversions import convert, convert_or_none, di
 
 @dataclass
 class SavedFilterPayload:
-
     filter_description: Optional[str] = None
     filter_name: Optional[str] = None
     filters: Optional[Filters] = None
@@ -120,7 +119,6 @@ class GetAllResponse(List[GetResponse]):
 
 @dataclass
 class CreateRequest:
-
     saved_filter: SavedFilterPayload
 
     @classmethod
@@ -134,7 +132,6 @@ CreateResponse = GetResponse
 
 @dataclass
 class UpdateRequest:
-
     saved_filter: SavedFilterPayload
 
     @classmethod

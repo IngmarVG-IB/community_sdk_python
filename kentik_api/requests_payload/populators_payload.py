@@ -151,7 +151,6 @@ class GetResponse(PopulatorGetPayload):
 
 @dataclass
 class CreateRequest:
-
     populator: PopulatorPayload
 
     @classmethod
@@ -165,7 +164,6 @@ CreateResponse = GetResponse
 
 @dataclass
 class UpdateRequest:
-
     populator: PopulatorPayload
 
     @classmethod

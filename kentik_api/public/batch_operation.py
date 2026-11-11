@@ -23,20 +23,17 @@ class Criterion:
 
 @dataclass()
 class Upsert:
-
     value: str
     criteria: List[Criterion]
 
 
 @dataclass()
 class Deletion:
-
     value: str
 
 
 @dataclass()
 class BatchOperationPart:
-
     replace_all: bool
     complete: bool
     upserts: List[Upsert]

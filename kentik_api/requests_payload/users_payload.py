@@ -62,7 +62,6 @@ class GetResponse:
 
 @dataclass()
 class GetAllResponse:
-
     users: List[_User]
 
     @classmethod
