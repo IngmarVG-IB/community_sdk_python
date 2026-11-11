@@ -1,108 +1,152 @@
 # Kentik API Python library
 
-This is a Python client library for [Kentik APIs](https://kb.kentik.com/v0/Ab09.htm).
-It is distributed as [_kentik-api_ PyPI package](https://pypi.org/project/kentik-api/).
+Python client for the [Kentik APIs](https://kb.kentik.com/v0/Ab09.htm), distributed on PyPI as
+[`kentik-api`](https://pypi.org/project/kentik-api/) and imported as `kentik_api`.
 
-## Installation with pip
+- **`KentikClient` / `AsyncKentikClient`**: the v6 APIs, generated from
+  [kentik/api-schema-public](https://github.com/kentik/api-schema-public). Every stable service version, with
+  alpha and beta versions under `client.experimental`. Sync and async, typed (pydantic v2 models, `py.typed`).
+- **`KentikAPI`**: the 1.x client for the legacy v5 REST API, synthetics v202202 and cloud_export
+  v202101beta1. Deprecated, still working; see [docs/UPGRADING.md](docs/UPGRADING.md).
 
-1. Install the library using pip:  
-```pip3 install kentik-api```
-2. Check installation successful - no errors should be reported:
-```python3 -c "import kentik_api"```
-3. Run an example (optional):
-  ```bash
-  export KTAPI_AUTH_EMAIL=<your kentik api credentials email>
-  export KTAPI_AUTH_TOKEN=<your kentik api credentials token>
-  python3 examples/sites_example.py
-  ```
+Requires Python 3.11 or newer.
 
-## Getting started
+## Install
 
-The best way to get started coding with the SDK is to study provided [examples](examples).
-
-Interfaces for manipulating all Kentik API resources are available under the `KentikAPI` object.  
-Every Kentik API resource is represented by a public class, and all related data types are located in the same source
-file or directory as the implementation of the class:
-- [CustomApplication](kentik_api/public/custom_application.py)
-- [CustomDimension](kentik_api/public/custom_dimension.py)
-- [DeviceLabel](kentik_api/public/device_label.py)
-- [Device](kentik_api/public/device.py)
-- [ManualMitigation](kentik_api/public/manual_mitigation.py)
-- [Plan](kentik_api/public/plan.py)
-- [QueryObject](kentik_api/public/query_object.py)
-- [QuerySQL](kentik_api/public/query_sql.py)
-- [SavedFilter](kentik_api/public/saved_filter.py)
-- [Site](kentik_api/public/site.py)
-- [Synthetic Tests](kentik_api/synthetics)
-- [Tag](kentik_api/public/tag.py)
-- [Tenant](kentik_api/public/tenant.py)
-- [User](kentik_api/public/user.py)
-
-## Additional utilities available in the `utils` sub-module
-
-### Authentication support
-
-- `get_credentials`: function for retrieving authentication credentials from the environment or a profile stored on
-  the disk. API authentication credentials can be provided via environment variables `KTAPI_AUTH_EMAIL` and
-  `KTAPI_AUTH_TOKEN` or via named profile (specified as argument to the `get_credentials` functions, defaulting
-  to `default`) which is a JSON file with following format:
-```json
-{
-  "email": "<email address>",
-  "api-key": "<the API key>"
-}
+```shell
+pip install kentik-api            # or: uv add kentik-api
+pip install "kentik-api[analytics]"  # pandas helpers for the 1.x query API
 ```
-Path to the profile file can be provided in `KTAPI_CFG_FILE`. Otherwise, it is first searched in
-`${KTAPI_HOME}/<profile_name>` and then in `${HOME}/.kentik/<profile_name>`.
 
-### Support for caching of device data
+## Quick start
 
-The `DeviceCache` class allows caching of device related data obtained from the Kentik API. It internally builds
-index of devices by `name` and by `id`. Devices are represented by the [Device](kentik_api/public/device.py) class which
-internally builds dictionary of device interfaces  (represented by the `DeviceInterface` class) by `name`.
+```python
+from kentik_api import KentikClient
 
-## Analytic support
+# Credentials: arguments, or KTAPI_AUTH_EMAIL / KTAPI_AUTH_TOKEN in the environment.
+with KentikClient(email="me@example.com", token="...", region="us") as client:  # region="eu" for the EU cluster
+    for test in client.synthetics.list_tests().tests or []:
+        print(test.id, test.name, test.status)
 
-The `analytics` package provides support for processing Kentik time series data using Pandas Dataframes.
-The [pandas](https://pandas.pydata.org) and [PyYAML](https://pyyaml.org/) modules are required by the `analytics`
-sub-module and are automatically installed with the `kentik-api[analytics]` option.
-See [analytics readme](kentik_api/analytics/README.md) for more details.
+    site = client.site.get_site("1234").site
+    print(site.title if site else None)
+```
 
-## Available Examples
+Async:
 
-- [alerting_example.py](examples/alerting_example.py) - create Manual Mitigation
-- [applications_example.py](examples/applications_example.py) - create/update/delete Custom Application
-- [bulk_user_create.py](examples/bulk_user_create.py) - create users from YAML file
-- [devices_example.py](examples/devices_example.py) - create/update/get/delete/list Devices
-- [dimensions_example.py](examples/dimensions_example.py) - create/update/get/delete/list Custom Dimensions,
-                                                            create/update/delete Populator
-- [labels_example.py](examples/labels_example.py) - create/update/get/delete/list Device Labels
-- [my_kentik_portal_example.py](examples/my_kentik_portal_example.py) - get/list Tenants, create/delete Tenant User
-- [plans_example.py](examples/plans_example.py) - list plans
-- [queries_example.py](examples/queries_example.py) - query for SQL/URL/data/chart
-- [saved_filters_example.py](examples/saved_filters_example.py) - create/update/get/delete/list Saved Filters
-- [sites_example.py](examples/sites_example.py) - create/update/get/delete/list Sites
-- [tags_example.py](examples/tags_example.py) - create/update/get/delete/list Tags
-- [users_example.py](examples/users_example.py) - create/update/get/delete/list Users
-- [error_handling_example.py](examples/error_handling_example.py) - handling errors raised by the library
-- [analytics_example_sql.py](examples/analytics_example_sql.py) - use of `SQLQueryDefinition`, `flatness_analysis`
-                                                                  methods and the`DeviceCache`
-- [analytics_example_topx.py](examples/analytics_example_sql.py) - use of `DataQueryDefinition`, `flatness_analysis`
-                                                                  methods and the`DeviceCache`
-  (see also [analytics readme](kentik_api/analytics/README.md))
-- [synthetics_example.py](examples/synthetics_example.py) - interact with synthetics API
-- [cloud_export_example.py](examples/cloud_export_example.py) - interact with cloud export API
+```python
+import asyncio
+from kentik_api import AsyncKentikClient
+
+async def main() -> None:
+    async with AsyncKentikClient() as client:
+        sites, labels = await asyncio.gather(client.site.list_sites(), client.label.list_labels())
+        print(len(sites.sites or []), len(labels.labels or []))
+
+asyncio.run(main())
+```
+
+## Services and versions
+
+Each service version is an attribute named `<service>_<version>`; an alias without the version points to the
+newest stable one. Nested packages use `_` (`alerting/public` is `alerting_public`).
+
+```python
+client.synthetics_v202309          # exact version (stable)
+client.synthetics                  # alias: newest stable version (v202309 today)
+client.cloud_export                # cloud_export v202506
+client.alerting_public.alert       # alerting/public: newest stable version of each gRPC service
+client.experimental.device         # no stable device API yet: newest beta (v202504beta2)
+client.experimental.synthetics_v20261005alpha1
+```
+
+Within a version, every gRPC service is an attribute (`client.synthetics.synthetics_admin`,
+`client.synthetics.synthetics_data`). When method names do not collide, they are also available directly
+(`client.synthetics.list_tests()`). Method names are the RPC names in snake_case; path parameters are
+positional, query parameters are keyword arguments, and request bodies are either a model or a plain dict:
+
+```python
+from kentik_api.v6.services.synthetics_v202309 import models
+
+client.synthetics.update_test("123", models.SyntheticsAdminServiceUpdateTestBody(test=...))
+client.synthetics.set_test_status("123", {"status": "TEST_STATUS_PAUSED"})
+```
+
+The full list, with stability and status, is in [`kentik-api.json`](kentik-api.json). Three stable services
+(`deviceconf`, `diagnostic`, `kptr`) are gRPC-only and are not reachable through this REST client.
+
+### Models
+
+Models are generated from the OpenAPI v3 schema. Fields are snake_case; the API's camelCase names work too.
+They are forward-compatible: unknown fields are kept (`model.model_extra`), unknown enum values parse instead
+of failing, and every field is optional because the API omits default values. `model.to_api()` returns the JSON
+that would be sent.
+
+### Pagination
+
+List RPCs with offset/limit pagination have an `iter_*` twin that fetches every page:
+
+```python
+for alert in client.alerting_public.alert.iter_list({"filters": {"states": ["ALERT_STATE_ACTIVE"]}}, page_size=200):
+    ...
+async for event in aclient.audit_public.iter_list_audit_events(start_time="2026-11-01T00:00:00Z"):
+    ...
+```
+
+### Timeouts, retries and errors
+
+```python
+from kentik_api import KentikClient
+from kentik_api.v6 import NotFoundError, RateLimitError, RetryConfig
+
+client = KentikClient(timeout=30, retry=RetryConfig(max_retries=5, max_backoff=20))
+try:
+    client.synthetics.get_test("42", timeout=5)  # per-call timeout
+except NotFoundError as err:
+    print(err.status_code, err.grpc_status, err.service, err.method, err.request_id)
+```
+
+- Retries use exponential backoff with full jitter. 429 is retried for every call and `Retry-After` is honoured;
+  5xx and network errors are retried only for idempotent calls (GET, PUT, DELETE, and read-only POST RPCs such
+  as `GetResultsForTests`). `RetryConfig.disabled()` turns retries off.
+- Errors derive from `kentik_api.v6.KentikError`: `BadRequestError`, `AuthenticationError`,
+  `PermissionDeniedError`, `NotFoundError`, `ConflictError`, `RateLimitError`, `ServerError`, `APIStatusError`
+  (other statuses), `APIConnectionError`/`APITimeoutError`, `ResponseValidationError`.
+- Requests and retries are logged at DEBUG/WARNING on the `kentik_api.v6` logger. Credentials are never logged.
+- Other options: `base_url=` (proxies, test servers), `proxy=`, `user_agent=`, `http_client=` (your own
+  `httpx.Client`).
+
+## Examples
+
+- [examples/v6](examples/v6): the v6 client (sync, async, pagination, error handling). CI runs them against an
+  offline fake server.
+- [examples/](examples): the deprecated 1.x `KentikAPI` client (v5 REST resources, analytics, synthetics v202202,
+  cloud export v202101beta1).
+
+## Legacy 1.x client
+
+`kentik_api.KentikAPI` and everything under `kentik_api.public`, `kentik_api.api_calls`, `kentik_api.synthetics`,
+`kentik_api.cloudexport`, `kentik_api.utils` and `kentik_api.analytics` keep working as in 1.0.x.
+Instantiating `KentikAPI` emits a `DeprecationWarning`. The v5 API is legacy on Kentik's side and gets no new
+features here. The 1.x documentation for its resources (devices, sites, users, tags, saved filters, custom
+dimensions and applications, plans, tenants, queries, alerting, batch) is in the source files under
+[kentik_api/public](kentik_api/public) and in the [analytics readme](kentik_api/analytics/README.md).
+`kentik_api.utils.get_credentials` (environment or `~/.kentik/<profile>` JSON profile) still works and its
+result can be passed to `KentikClient(email, token)`.
+
+Migration notes: [docs/UPGRADING.md](docs/UPGRADING.md).
 
 ## Development
 
-[Instructions for developers](docs/README.md)
+See [AGENTS.md](AGENTS.md): `uv sync`, then `make test lint vuln generate build`. Design decisions are in
+[docs/adr](docs/adr). Security reports: [SECURITY.md](SECURITY.md).
 
 ## Open-source libraries
 
-This software uses the following open-source libraries:
-- [dacite](https://pypi.org/project/dacite/) by Konrad Hałas - MIT License
-- [requests](https://pypi.org/project/requests/) by Kenneth Reitz - Apache Software License (Apache 2.0)
-- [typing-extensions](https://pypi.org/project/typing-extensions/) by  Guido van Rossum, Jukka Lehtosalo, Lukasz Langa,
-                                                                   Michael Lee - PSFL License
-- [pandas](https://pandas.pydata.org) supported by NumFOCUS - BSD 3-Clause License
-- [pyyaml](https://pyyaml.org/) by Ingy döt Net and Kirill Simonov - MIT license
+Runtime dependencies: [httpx](https://www.python-httpx.org/) (BSD-3-Clause), [pydantic](https://docs.pydantic.dev/)
+(MIT), and for the 1.x client [requests](https://pypi.org/project/requests/) (Apache-2.0),
+[dacite](https://pypi.org/project/dacite/) (MIT), [protobuf](https://pypi.org/project/protobuf/) (BSD-3-Clause),
+[grpcio](https://pypi.org/project/grpcio/) (Apache-2.0),
+[googleapis-common-protos](https://pypi.org/project/googleapis-common-protos/) (Apache-2.0) and
+[typing-extensions](https://pypi.org/project/typing-extensions/) (PSF). The `analytics` extra adds
+[pandas](https://pandas.pydata.org) (BSD-3-Clause), [PyYAML](https://pyyaml.org/) (MIT) and fastparquet (Apache-2.0).

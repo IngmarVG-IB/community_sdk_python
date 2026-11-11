@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "kentik-api"
-description = "Kentik API SDK"
+description = "Kentik API SDK: generated v6 client (sync and async) plus the legacy v5 client"
 authors = [
     { name = "Martin Machacek", email = "martin.machacek@kentik.com" },
 ]
@@ -80,6 +80,8 @@ include = [
     "/README.md",
     "/LICENSE",
     "/CHANGELOG.md",
+    "/docs/UPGRADING.md",
+    "/kentik-api.json",
 ]
 
 [tool.hatch.build.targets.wheel]
@@ -89,6 +91,9 @@ packages = ["kentik_api"]
 line-length = 120
 target-version = "py311"
 extend-exclude = ["kentik_api/generated", "examples/demos"]
+
+[tool.ruff.format]
+exclude = ["*.md"]  # keep hand-aligned snippets in the docs
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "UP", "B", "BLE", "S", "PIE", "RUF"]
@@ -146,6 +151,11 @@ module = [
     "examples.*",
 ]
 ignore_errors = true
+
+[[tool.mypy.overrides]]
+# new examples are checked strictly like the rest of the 2.x code
+module = ["examples.v6.*"]
+ignore_errors = false
 
 [[tool.mypy.overrides]]
 module = ["httpretty.*", "pandas.*", "fastparquet.*", "grpc.*", "grpc_tools.*", "dacite.*"]

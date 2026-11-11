@@ -22,6 +22,11 @@ All notable changes to this project are documented here. The format is based on
   - `iter_*` pagination helpers for offset/limit list RPCs; debug logging on the `kentik_api.v6` logger;
   - forward-compatible models: unknown fields kept, open enums, all fields optional;
   - `py.typed`.
+- Offline test suite for the v6 client (respx): configuration, auth headers, retries, errors, pagination,
+  models, client surface, examples, and one sync plus one async round trip for each of the 317 generated
+  operations.
+- `examples/v6/`: sync, async, pagination and error-handling examples.
+- `docs/UPGRADING.md` (1.0.x to 2.0); README rewritten around the v6 client.
 - `scripts/generate.py` v6 stage (`scripts/gen_v6.py`) generates models, service wrappers, the client registry
   and `kentik-api.json`; vendored schema in `schema/openapiv3`.
 
