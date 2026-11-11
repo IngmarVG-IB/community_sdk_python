@@ -35,6 +35,7 @@ All notable changes to this project are documented here. The format is based on
 ### Added
 - `AGENTS.md`, `CLAUDE.md`, `SECURITY.md`, this changelog, `kentik-api.json` coverage manifest and
   `scripts/check_manifest.py`, ADR 0004.
+- ADR 0005: the v6 client uses REST over grpc-gateway, generated from api-schema-public OpenAPI v3.
 
 ## [1.0.7] - 2023-05-19
 
