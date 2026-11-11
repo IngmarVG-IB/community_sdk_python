@@ -1,6 +1,8 @@
 import logging
 from typing import Any, List, Optional, Tuple, Union
 
+from typing_extensions import deprecated
+
 from .api_connection.api_connector import APIConnector
 from .api_connection.retryable_session import Retry
 from .api_resources.alerting_api import AlertingAPI
@@ -21,9 +23,21 @@ from .cloudexport.client import KentikCloudExportClient
 from .synthetics.api_connector import APISyntheticsConnector
 from .synthetics.synth_client import KentikSynthClient
 
+LEGACY_DEPRECATION = (
+    "kentik_api.KentikAPI is deprecated: it wraps the legacy v5 REST API and superseded v6 versions "
+    "(synthetics v202202, cloud_export v202101beta1). Use kentik_api.KentikClient for the v6 APIs; "
+    "see docs/UPGRADING.md."
+)
 
+
+@deprecated(LEGACY_DEPRECATION, category=DeprecationWarning)
 class KentikAPI:
-    """Root object for operating KentikAPI"""
+    """Root object for operating KentikAPI (1.x).
+
+    .. deprecated:: 2.0
+        Wraps the legacy v5 REST API plus synthetics v202202 and cloud_export v202101beta1 over gRPC.
+        Use :class:`kentik_api.KentikClient` (v6). It keeps working, but receives no new features.
+    """
 
     API_HOST_EU = "api.kentik.eu"
     API_HOST_US = "api.kentik.com"

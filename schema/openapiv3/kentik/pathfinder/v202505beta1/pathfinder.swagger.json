@@ -1,0 +1,257 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Pathfinder API",
+        "description": "# Overview\nThe **Pathfinder API** provides programmatic access to Kentik's **Cloud Pathfinder**, enabling you to check and monitor **forward and return network paths** between two points in your cloud environment. It supports entities like instances, subnets, and network interfaces over a specified time range.\n### Supported Cloud Providers\nThe API's functionality and configuration parameter vary by cloud provider, as follows:\n* [Amazon Web Services](https://kb.kentik.com/v0/Bd06.htm) (AWS)\n* [Microsoft Azure](https://kb.kentik.com/v0/Bd08.htm)\n\n### Supported Entity Types\nFor AWS, the API supports checking connectivity between:\n* Subnets\n* Instances\n* Network Interfaces\n\nFor Azure, the API supports checking connectivity between:\n* Subnets\n### Requirements\nTo successfully query connections between entity resources with Kentik's Pathfinder API, you must first configure a Kentik **cloud export** (see [Cloud Exports and Devices](https://kb.kentik.com/v4/Na00.htm#Na00-Cloud_Exports_and_Devices)) for a supported cloud provider (AWS or Azure).\nOnce configured, Kentik will regularly pull metadata from the specified cloud account. Pathfinder then uses this metadata to:\n* Visualize the path for connections between any two points in your AWS network.\n* Check routing and NACL/SG configurations to quickly highlight blocked connections.\n* Provide a direct link to misconfigured gateways or security policies in the cloud dashboard for quick issue resolution.\n\n### Frequency of available data\nSince Pathfinder relies on discovered metadata, query results are limited to the timeframe of the latest metadata retrieval fetch, currently 15-minutes intervals.",
+        "version": "v202505beta1",
+        "contact": {
+            "name": "Kentik API Engineering",
+            "url": "https://github.com/kentik/api-schema-public"
+        }
+    },
+    "tags": [
+        {
+            "name": "PathfinderAdminService"
+        }
+    ],
+    "paths": {
+        "/pathfinder/v202505beta1/create": {
+            "post": {
+                "summary": "Create a Pathfinder Report.",
+                "description": "Create a pathfinder report based on configuration provided in the request.",
+                "operationId": "CreatePathfinderReport",
+                "responses": {
+                    "200": {
+                        "description": "A successful response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/v202505beta1CreatePathfinderReportResponse"
+                                }
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "An unexpected error response.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/rpcStatus"
+                                }
+                            }
+                        }
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/v202505beta1CreatePathfinderReportRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "tags": [
+                    "PathfinderAdminService"
+                ]
+            }
+        }
+    },
+    "security": [
+        {
+            "email": [],
+            "token": []
+        }
+    ],
+    "externalDocs": {
+        "description": "Kentik Pathfinder documentation",
+        "url": "https://kb.kentik.com/v4/Na05.htm"
+    },
+    "components": {
+        "securitySchemes": {
+            "email": {
+                "type": "apiKey",
+                "name": "X-CH-Auth-Email",
+                "in": "header"
+            },
+            "token": {
+                "type": "apiKey",
+                "name": "X-CH-Auth-API-Token",
+                "in": "header"
+            }
+        },
+        "schemas": {
+            "protobufAny": {
+                "type": "object",
+                "properties": {
+                    "@type": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": {}
+            },
+            "rpcStatus": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/protobufAny"
+                        }
+                    }
+                }
+            },
+            "v202505beta1CloudProvider": {
+                "type": "string",
+                "enum": [
+                    "CLOUD_PROVIDER_UNSPECIFIED",
+                    "CLOUD_PROVIDER_AWS",
+                    "CLOUD_PROVIDER_AZURE"
+                ],
+                "default": "CLOUD_PROVIDER_UNSPECIFIED",
+                "description": "- CLOUD_PROVIDER_UNSPECIFIED: Invalid value.\n - CLOUD_PROVIDER_AWS: Amazon Web Services\n - CLOUD_PROVIDER_AZURE: Microsoft Azure",
+                "title": "CloudProvider"
+            },
+            "v202505beta1CreatePathfinderReportRequest": {
+                "type": "object",
+                "properties": {
+                    "cloudProvider": {
+                        "$ref": "#/components/schemas/v202505beta1CloudProvider"
+                    },
+                    "src": {
+                        "type": "string",
+                        "description": "Source"
+                    },
+                    "dst": {
+                        "type": "string",
+                        "description": "Destination"
+                    },
+                    "dstPort": {
+                        "type": "string",
+                        "description": "Destination Port"
+                    },
+                    "protocol": {
+                        "type": "string",
+                        "description": "Protocol"
+                    },
+                    "srcType": {
+                        "$ref": "#/components/schemas/v202505beta1EntityType"
+                    },
+                    "dstType": {
+                        "$ref": "#/components/schemas/v202505beta1EntityType"
+                    },
+                    "startTime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Start Timestamp (UTC) which defines the time range for the report."
+                    },
+                    "endTime": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "End timestamp (UTC) which defines the time range for the report."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Report Name"
+                    }
+                },
+                "title": "CreatePathfinderReportRequest",
+                "required": [
+                    "cloudProvider",
+                    "src",
+                    "dst",
+                    "dstPort",
+                    "protocol",
+                    "startTime",
+                    "endTime"
+                ]
+            },
+            "v202505beta1CreatePathfinderReportResponse": {
+                "type": "object",
+                "properties": {
+                    "reachable": {
+                        "type": "string",
+                        "description": "Attribute controlling whether the instance is active",
+                        "readOnly": true
+                    },
+                    "returnReachable": {
+                        "type": "string",
+                        "description": "Attribute controlling whether the instance is active",
+                        "readOnly": true
+                    },
+                    "queryStatus": {
+                        "type": "string",
+                        "description": "Status of the query.",
+                        "readOnly": true
+                    },
+                    "reportUrl": {
+                        "type": "string",
+                        "description": "URL to view the pathfinder report in the Kentik platform.",
+                        "readOnly": true
+                    },
+                    "paths": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v202505beta1PathElement"
+                        },
+                        "description": "The connection paths in your network.",
+                        "readOnly": true
+                    },
+                    "returnPaths": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v202505beta1PathElement"
+                        },
+                        "description": "The return connection paths in your network.",
+                        "readOnly": true
+                    },
+                    "lastMetadataFetch": {
+                        "type": "string",
+                        "description": "The timestamp indicating when the metadata used to build the pathfinder report was last fetched.",
+                        "readOnly": true
+                    },
+                    "summary": {
+                        "type": "string",
+                        "description": "The pathfinder report summary",
+                        "readOnly": true
+                    }
+                },
+                "title": "CreatePathfinderReportResponse"
+            },
+            "v202505beta1EntityType": {
+                "type": "string",
+                "enum": [
+                    "ENTITY_TYPE_UNSPECIFIED",
+                    "ENTITY_TYPE_SUBNET",
+                    "ENTITY_TYPE_INSTANCE",
+                    "ENTITY_TYPE_NETWORK_INTERFACE"
+                ],
+                "default": "ENTITY_TYPE_UNSPECIFIED",
+                "description": "- ENTITY_TYPE_UNSPECIFIED: Invalid value.\n - ENTITY_TYPE_SUBNET: Subnet\n - ENTITY_TYPE_INSTANCE: Instance\n - ENTITY_TYPE_NETWORK_INTERFACE: Network Interfaces",
+                "title": "EntityType"
+            },
+            "v202505beta1PathElement": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "string"
+                    },
+                    "region": {
+                        "type": "string"
+                    }
+                }
+            }
+        }
+    }
+}

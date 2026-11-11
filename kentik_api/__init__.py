@@ -5,3 +5,5 @@ sys.path.append(str(pathlib.Path(__file__).parent.joinpath("generated")))  # for
 
 from .kentik_api import KentikAPI
 from .public import *
+from .v6 import AsyncKentikClient as AsyncKentikClient
+from .v6 import KentikClient as KentikClient

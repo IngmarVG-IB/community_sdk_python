@@ -1,42 +1,1015 @@
 {
   "schema_source": {
     "repo": "github.com/kentik/api-schema-public",
-    "ref": "5a262a75ff5c32fe70be37af4e0262fcc30bf4fb",
-    "note": "legacy protos (synthetics v202202 was removed from api-schema-public in 702809b)"
+    "ref": "5d1d2fa374e40d15646a495eed5b53e88b407713",
+    "ref_date": "2026-11-10T12:43:45Z",
+    "legacy_ref": "5a262a75ff5c32fe70be37af4e0262fcc30bf4fb",
+    "path": "gen/openapiv3"
+  },
+  "package": {
+    "pypi": "kentik-api",
+    "import": "kentik_api",
+    "client": [
+      "kentik_api.KentikClient",
+      "kentik_api.AsyncKentikClient"
+    ]
   },
   "services": [
     {
-      "service": "synthetics",
-      "version": "v202202",
+      "service": "ai_advisor",
+      "version": "v202511",
       "stability": "stable",
-      "status": "deprecated",
-      "transport": "grpc",
-      "surface": ["kentik_api.KentikAPI.synthetics (KentikSynthClient)"]
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.ai_advisor_v202511",
+      "alias": "client.ai_advisor",
+      "surface": [
+        "AiAdvisorDataService/CreateChatSession",
+        "AiAdvisorDataService/GetChatSession",
+        "AiAdvisorDataService/UpdateChatSession"
+      ]
+    },
+    {
+      "service": "alerting/context",
+      "version": "v202602",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "alerting/public",
+      "version": "v202505",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.alerting_public_v202505",
+      "alias": "client.alerting_public",
+      "surface": [
+        "AlertAutoAckService/Create",
+        "AlertAutoAckService/Delete",
+        "AlertAutoAckService/Get",
+        "AlertAutoAckService/List",
+        "AlertAutoAckService/Replace",
+        "AlertService/Ack",
+        "AlertService/AddComment",
+        "AlertService/Clear",
+        "AlertService/Get",
+        "AlertService/List",
+        "AlertService/ListComments",
+        "AlertService/SetExternalContext",
+        "AlertService/UnAck",
+        "AlertSilenceNotificationsService/Create",
+        "AlertSilenceNotificationsService/Delete",
+        "AlertSilenceNotificationsService/Get",
+        "AlertSilenceNotificationsService/List",
+        "AlertSilenceNotificationsService/Replace",
+        "MitigationMethodsService/Get",
+        "MitigationMethodsService/List",
+        "MitigationPlatformsService/Get",
+        "MitigationPlatformsService/List",
+        "MitigationsService/Act",
+        "MitigationsService/AvailableActions",
+        "MitigationsService/AvailableActionsForMitigation",
+        "MitigationsService/Create",
+        "MitigationsService/Get",
+        "MitigationsService/List",
+        "PolicyService/Disable",
+        "PolicyService/Enable",
+        "PolicyService/Get",
+        "PolicyService/List",
+        "SuppressionService/Create",
+        "SuppressionService/Delete",
+        "SuppressionService/Get",
+        "SuppressionService/List",
+        "SuppressionService/Replace"
+      ]
+    },
+    {
+      "service": "alerting/public",
+      "version": "v202611",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.alerting_public_v202611",
+      "alias": "client.alerting_public",
+      "surface": [
+        "SuppressionService/Create",
+        "SuppressionService/Delete",
+        "SuppressionService/Get",
+        "SuppressionService/List",
+        "SuppressionService/Replace"
+      ]
+    },
+    {
+      "service": "alerting/types",
+      "version": "v202303",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "alerting/types",
+      "version": "v202506",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "as_group",
+      "version": "v202212",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.as_group_v202212",
+      "alias": "client.as_group",
+      "surface": [
+        "ASGroupService/CreateASGroup",
+        "ASGroupService/DeleteASGroup",
+        "ASGroupService/GetASGroup",
+        "ASGroupService/ListASGroups",
+        "ASGroupService/UpdateASGroup"
+      ]
+    },
+    {
+      "service": "asset_tags",
+      "version": "v20260515beta1",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.asset_tags_v20260515beta1",
+      "alias": "client.experimental.asset_tags",
+      "surface": [
+        "AssetTagsService/CreateTagKey",
+        "AssetTagsService/DeleteTagKey",
+        "AssetTagsService/DeleteTagValues",
+        "AssetTagsService/GetTagKey",
+        "AssetTagsService/GetTagValues",
+        "AssetTagsService/ListTagKeys",
+        "AssetTagsService/ListTagValues",
+        "AssetTagsService/SetTagValues",
+        "AssetTagsService/UpdateTagKey"
+      ]
+    },
+    {
+      "service": "audit/public",
+      "version": "v202601",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.audit_public_v202601",
+      "alias": "client.audit_public",
+      "surface": [
+        "AuditService/GetAuditEvent",
+        "AuditService/ListAuditEvents"
+      ]
+    },
+    {
+      "service": "bgp_monitoring",
+      "version": "v202205beta1",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.bgp_monitoring_v202205beta1",
+      "surface": [
+        "BgpMonitoringAdminService/CreateMonitor",
+        "BgpMonitoringAdminService/MonitorDelete",
+        "BgpMonitoringAdminService/MonitorGet",
+        "BgpMonitoringAdminService/MonitorUpdate",
+        "BgpMonitoringAdminService/MonitorsList",
+        "BgpMonitoringAdminService/SetMonitorStatus",
+        "BgpMonitoringDataService/GetMetricsForTarget",
+        "BgpMonitoringDataService/GetRoutesForTarget"
+      ]
+    },
+    {
+      "service": "bgp_monitoring",
+      "version": "v202210",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.bgp_monitoring_v202210",
+      "alias": "client.bgp_monitoring",
+      "surface": [
+        "BgpMonitoringAdminService/CreateMonitor",
+        "BgpMonitoringAdminService/DeleteMonitor",
+        "BgpMonitoringAdminService/GetMonitor",
+        "BgpMonitoringAdminService/ListMonitors",
+        "BgpMonitoringAdminService/SetMonitorStatus",
+        "BgpMonitoringAdminService/UpdateMonitor",
+        "BgpMonitoringDataService/GetMetricsForTarget",
+        "BgpMonitoringDataService/GetRoutesForTarget"
+      ]
+    },
+    {
+      "service": "capacity_plan",
+      "version": "v202212",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.capacity_plan_v202212",
+      "alias": "client.capacity_plan",
+      "surface": [
+        "CapacityPlanService/GetCapacityPlan",
+        "CapacityPlanService/GetCapacitySummary",
+        "CapacityPlanService/ListCapacityPlans",
+        "CapacityPlanService/ListCapacitySummaries"
+      ]
     },
     {
       "service": "cloud_export",
       "version": "v202101beta1",
       "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.cloud_export_v202101beta1",
+      "surface": [
+        "CloudExportAdminService/ExportCreate",
+        "CloudExportAdminService/ExportDelete",
+        "CloudExportAdminService/ExportGet",
+        "CloudExportAdminService/ExportList",
+        "CloudExportAdminService/ExportPatch",
+        "CloudExportAdminService/ExportUpdate"
+      ],
+      "note": "also kentik_api.KentikAPI.cloud_export (1.x gRPC client, deprecated)"
+    },
+    {
+      "service": "cloud_export",
+      "version": "v202210",
+      "stability": "stable",
       "status": "deprecated",
-      "transport": "grpc",
-      "surface": ["kentik_api.KentikAPI.cloud_export (KentikCloudExportClient)"]
+      "transport": "rest",
+      "python": "client.cloud_export_v202210",
+      "surface": [
+        "CloudExportAdminService/CreateCloudExport",
+        "CloudExportAdminService/DeleteCloudExport",
+        "CloudExportAdminService/GetCloudExport",
+        "CloudExportAdminService/ListCloudExports",
+        "CloudExportAdminService/UpdateCloudExport"
+      ]
+    },
+    {
+      "service": "cloud_export",
+      "version": "v202506",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.cloud_export_v202506",
+      "alias": "client.cloud_export",
+      "surface": [
+        "CloudExportAdminService/CreateCloudExport",
+        "CloudExportAdminService/DeleteCloudExport",
+        "CloudExportAdminService/GetCloudExport",
+        "CloudExportAdminService/ListCloudExports",
+        "CloudExportAdminService/UpdateCloudExport"
+      ]
+    },
+    {
+      "service": "connectivity_checker",
+      "version": "v202410beta1",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.connectivity_checker_v202410beta1",
+      "alias": "client.experimental.connectivity_checker",
+      "surface": [
+        "ConnectivityCheckerAdminService/CreateConnectivityReport"
+      ]
     },
     {
       "service": "core",
       "version": "v202303",
       "stability": "stable",
       "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "cost",
+      "version": "v202308",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.cost_v202308",
+      "alias": "client.cost",
+      "surface": [
+        "CostService/GetCostProviderSummary",
+        "CostService/ListCostProviderSummaries",
+        "CostService/ListCostProviders"
+      ]
+    },
+    {
+      "service": "credential",
+      "version": "v202407alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.credential_v202407alpha1",
+      "surface": [
+        "CredentialService/GetCredentialGroup",
+        "CredentialService/ListCredentialGroup"
+      ]
+    },
+    {
+      "service": "credential",
+      "version": "v20261020alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.credential_v20261020alpha1",
+      "alias": "client.experimental.credential",
+      "surface": [
+        "CredentialService/AssignConsumer",
+        "CredentialService/CreateCredentialGroup",
+        "CredentialService/DeleteCredential",
+        "CredentialService/DeleteCredentialGroup",
+        "CredentialService/GetCredential",
+        "CredentialService/GetCredentialGroup",
+        "CredentialService/ListCredentialGroups",
+        "CredentialService/ListCredentialOverviews",
+        "CredentialService/ListCredentials",
+        "CredentialService/UpdateCredentialGroup"
+      ]
+    },
+    {
+      "service": "custom_application",
+      "version": "v202501alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.custom_application_v202501alpha1",
+      "alias": "client.experimental.custom_application",
+      "surface": [
+        "CustomApplicationService/CreateCustomApplication",
+        "CustomApplicationService/DeleteCustomApplication",
+        "CustomApplicationService/GetCustomApplication",
+        "CustomApplicationService/ListCustomApplications",
+        "CustomApplicationService/UpdateCustomApplication"
+      ]
+    },
+    {
+      "service": "custom_dimension",
+      "version": "v202411alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.custom_dimension_v202411alpha1",
+      "alias": "client.experimental.custom_dimension",
+      "surface": [
+        "CustomDimensionService/CreateCustomDimension",
+        "CustomDimensionService/CreatePopulator",
+        "CustomDimensionService/DeleteCustomDimension",
+        "CustomDimensionService/DeletePopulator",
+        "CustomDimensionService/GetCustomDimensionInfo",
+        "CustomDimensionService/GetPopulator",
+        "CustomDimensionService/GetPopulatorField",
+        "CustomDimensionService/ListCustomDimensions",
+        "CustomDimensionService/UpdateCustomDimension",
+        "CustomDimensionService/UpdatePopulator"
+      ]
+    },
+    {
+      "service": "device",
+      "version": "v202308beta1",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.device_v202308beta1",
+      "surface": [
+        "DeviceService/CreateDevice",
+        "DeviceService/CreateDevices",
+        "DeviceService/DeleteDevice",
+        "DeviceService/DeleteDevices",
+        "DeviceService/GetDevice",
+        "DeviceService/ListDevices",
+        "DeviceService/UpdateDevice",
+        "DeviceService/UpdateDeviceLabels",
+        "DeviceService/UpdateDevices"
+      ]
+    },
+    {
+      "service": "device",
+      "version": "v202504beta2",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.device_v202504beta2",
+      "alias": "client.experimental.device",
+      "surface": [
+        "DeviceService/CreateDevice",
+        "DeviceService/CreateDevices",
+        "DeviceService/DeleteDevice",
+        "DeviceService/DeleteDevices",
+        "DeviceService/GetDevice",
+        "DeviceService/GetDeviceByName",
+        "DeviceService/ListDevices",
+        "DeviceService/UpdateDevice",
+        "DeviceService/UpdateDeviceLabels",
+        "DeviceService/UpdateDevices"
+      ]
+    },
+    {
+      "service": "deviceconf",
+      "version": "v202511",
+      "stability": "stable",
+      "status": "unsupported",
+      "transport": "grpc-only",
+      "surface": [],
+      "note": "no google.api.http bindings: gRPC only, not reachable through the REST client (services: DeviceConfigurationService)"
+    },
+    {
+      "service": "diagnostic",
+      "version": "v202501",
+      "stability": "stable",
+      "status": "unsupported",
+      "transport": "grpc-only",
+      "surface": [],
+      "note": "no google.api.http bindings: gRPC only, not reachable through the REST client (services: DiagnosticService)"
+    },
+    {
+      "service": "dictionary",
+      "version": "v20260604alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.dictionary_v20260604alpha1",
+      "alias": "client.experimental.dictionary",
+      "surface": [
+        "DictionaryService/GetDictionary"
+      ]
+    },
+    {
+      "service": "enrichments/enumerations",
+      "version": "v202601alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.enrichments_enumerations_v202601alpha1",
+      "alias": "client.experimental.enrichments_enumerations",
+      "surface": [
+        "EnumerationsAdminService/FetchValuesByIds"
+      ]
+    },
+    {
+      "service": "flow_tag",
+      "version": "v202404alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.flow_tag_v202404alpha1",
+      "alias": "client.experimental.flow_tag",
+      "surface": [
+        "FlowTagService/CreateFlowTag",
+        "FlowTagService/DeleteFlowTag",
+        "FlowTagService/GetFlowTag",
+        "FlowTagService/SearchFlowTag",
+        "FlowTagService/UpdateFlowTag"
+      ]
+    },
+    {
+      "service": "interface",
+      "version": "v202108alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.interface_v202108alpha1",
+      "alias": "client.experimental.interface",
+      "surface": [
+        "InterfaceService/InterfaceCreate",
+        "InterfaceService/InterfaceDelete",
+        "InterfaceService/InterfaceGet",
+        "InterfaceService/InterfaceUpdate",
+        "InterfaceService/ListInterface",
+        "InterfaceService/ManualClassify"
+      ]
+    },
+    {
+      "service": "journeys",
+      "version": "v202405alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.journeys_v202405alpha1",
+      "surface": [
+        "JourneysDataService/GetJourneysNlq"
+      ]
+    },
+    {
+      "service": "journeys",
+      "version": "v202406",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.journeys_v202406",
+      "alias": "client.journeys",
+      "surface": [
+        "JourneysDataService/GetJourneysNlq"
+      ]
+    },
+    {
+      "service": "kagent",
+      "version": "v202312",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "kagent",
+      "version": "v202401",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.kagent_v202401",
+      "alias": "client.kagent",
+      "surface": [
+        "AgentCapabilityService/DeleteAgentCapability",
+        "AgentCapabilityService/GetAgentCapability",
+        "AgentCapabilityService/ListAgentCapabilities",
+        "AgentCapabilityService/UpsertAgentCapability",
+        "AgentService/Authorize",
+        "AgentService/CreateAgent",
+        "AgentService/DeleteAgent",
+        "AgentService/GenerateInstallCommands",
+        "AgentService/GetAgent",
+        "AgentService/ListAgents",
+        "AgentService/UpdateAgent",
+        "CapabilityAdminService/CreateCapability",
+        "CapabilityAdminService/DeleteCapability",
+        "CapabilityAdminService/GetCapability",
+        "CapabilityAdminService/ListCapabilities",
+        "CapabilityAdminService/UpdateCapability",
+        "CapabilityReleaseService/GetCapabilityLatestReleases",
+        "CapabilityReleaseService/GetCapabilityRelease",
+        "CapabilityReleaseService/GetCapabilitySupportedDistros",
+        "ConfigService/CreateConfig",
+        "ConfigService/DeleteConfig",
+        "ConfigService/GetConfig",
+        "ConfigService/UpdateConfig",
+        "ProvisioningTokenService/CreateProvisioningToken",
+        "ProvisioningTokenService/GetProvisioningToken",
+        "ProvisioningTokenService/ListAgentsByProvisioningToken",
+        "ProvisioningTokenService/ListProvisioningTokens",
+        "ProvisioningTokenService/RevokeProvisioningToken"
+      ]
+    },
+    {
+      "service": "kmeta",
+      "version": "v202607alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.kmeta_v202607alpha1",
+      "alias": "client.experimental.kmeta",
+      "surface": [
+        "KmetaService/CreateServiceNowConfig",
+        "KmetaService/DeleteServiceNowConfig",
+        "KmetaService/GetServiceNowConfig",
+        "KmetaService/ListServiceNowConfigs",
+        "KmetaService/UpdateServiceNowConfig"
+      ]
+    },
+    {
+      "service": "kmi",
+      "version": "v202212",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.kmi_v202212",
+      "alias": "client.kmi",
+      "surface": [
+        "KmiService/GetASNDetails",
+        "KmiService/GetASNInsights",
+        "KmiService/GetGlobalInsights",
+        "KmiService/GetRankings",
+        "KmiService/ListMarkets"
+      ]
+    },
+    {
+      "service": "kptr",
+      "version": "v202602",
+      "stability": "stable",
+      "status": "unsupported",
+      "transport": "grpc-only",
+      "surface": [],
+      "note": "no google.api.http bindings: gRPC only, not reachable through the REST client (services: KptrService)"
+    },
+    {
+      "service": "ktbgp",
+      "version": "v202501",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.ktbgp_v202501",
+      "alias": "client.ktbgp",
+      "surface": [
+        "RouteService/Announce",
+        "RouteService/List",
+        "RouteService/Withdraw"
+      ]
+    },
+    {
+      "service": "label",
+      "version": "v202203alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.label_v202203alpha1",
+      "surface": [
+        "LabelService/LabelCreate",
+        "LabelService/LabelDelete",
+        "LabelService/LabelUpdate",
+        "LabelService/ListLabel"
+      ]
+    },
+    {
+      "service": "label",
+      "version": "v202210",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.label_v202210",
+      "alias": "client.label",
+      "surface": [
+        "LabelService/CreateLabel",
+        "LabelService/DeleteLabel",
+        "LabelService/ListLabels",
+        "LabelService/UpdateLabel"
+      ]
+    },
+    {
+      "service": "mkp",
+      "version": "v202102alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.mkp_v202102alpha1",
+      "surface": [
+        "PackageService/PackageCreate",
+        "PackageService/PackageDelete",
+        "PackageService/PackageGet",
+        "PackageService/PackageList",
+        "PackageService/PackagePatch",
+        "PackageService/PackageUpdate",
+        "TenantService/TenantCreate",
+        "TenantService/TenantDelete",
+        "TenantService/TenantGet",
+        "TenantService/TenantList",
+        "TenantService/TenantPatch",
+        "TenantService/TenantUpdate"
+      ]
+    },
+    {
+      "service": "mkp",
+      "version": "v202407",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.mkp_v202407",
+      "alias": "client.mkp",
+      "surface": [
+        "PackageService/PackageCreate",
+        "PackageService/PackageDelete",
+        "PackageService/PackageGet",
+        "PackageService/PackageList",
+        "PackageService/PackageUpdate",
+        "TenantService/TenantCreate",
+        "TenantService/TenantDelete",
+        "TenantService/TenantGet",
+        "TenantService/TenantList",
+        "TenantService/TenantUpdate",
+        "TenantUserService/TenantUserCreate",
+        "TenantUserService/TenantUserDelete",
+        "TenantUserService/TenantUserList",
+        "TenantUserService/TenantUserUpdate"
+      ]
+    },
+    {
+      "service": "monitoring",
+      "version": "v1",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "net",
+      "version": "v202303",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "n/a",
+      "surface": [
+        "message types only (inlined into dependent models)"
+      ]
+    },
+    {
+      "service": "network_class",
+      "version": "v202109alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.network_class_v202109alpha1",
+      "alias": "client.experimental.network_class",
+      "surface": [
+        "NetworkClassService/NetworkClassGet",
+        "NetworkClassService/NetworkClassUpdate"
+      ]
+    },
+    {
+      "service": "nms",
+      "version": "v202505",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.nms_v202505",
+      "alias": "client.nms",
+      "surface": [
+        "MetricsSchemaService/GetMetricsSchema"
+      ]
+    },
+    {
+      "service": "notification_channel",
+      "version": "v202204alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.notification_channel_v202204alpha1",
+      "surface": [
+        "NotificationChannelService/GetNotificationChannel",
+        "NotificationChannelService/ListNotificationChannels"
+      ]
+    },
+    {
+      "service": "notification_channel",
+      "version": "v202210",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.notification_channel_v202210",
+      "alias": "client.notification_channel",
+      "surface": [
+        "NotificationChannelService/GetNotificationChannel",
+        "NotificationChannelService/ListNotificationChannels",
+        "NotificationChannelService/SearchNotificationChannels"
+      ]
+    },
+    {
+      "service": "pathfinder",
+      "version": "v202505beta1",
+      "stability": "beta",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.pathfinder_v202505beta1",
+      "alias": "client.experimental.pathfinder",
+      "surface": [
+        "PathfinderAdminService/CreatePathfinderReport"
+      ]
+    },
+    {
+      "service": "plan",
+      "version": "v202501alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.plan_v202501alpha1",
+      "alias": "client.experimental.plan",
+      "surface": [
+        "PlanService/ListPlans"
+      ]
+    },
+    {
+      "service": "rbux",
+      "version": "v202607alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.rbux_v202607alpha1",
+      "alias": "client.experimental.rbux",
+      "surface": [
+        "ScopeService/CreateScope",
+        "ScopeService/DeleteScope",
+        "ScopeService/GetScope",
+        "ScopeService/ListScopes",
+        "ScopeService/UpdateScope"
+      ]
+    },
+    {
+      "service": "saved_filter",
+      "version": "v202501alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.saved_filter_v202501alpha1",
+      "alias": "client.experimental.saved_filter",
+      "surface": [
+        "SavedFilterService/CreateSavedFilter",
+        "SavedFilterService/DeleteSavedFilter",
+        "SavedFilterService/GetSavedFilter",
+        "SavedFilterService/ListSavedFilters",
+        "SavedFilterService/ListSavedFiltersAll",
+        "SavedFilterService/UpdateSavedFilter"
+      ]
+    },
+    {
+      "service": "site",
+      "version": "v202106alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.site_v202106alpha1",
+      "surface": [
+        "SiteService/SiteCreate",
+        "SiteService/SiteDelete",
+        "SiteService/SiteGet",
+        "SiteService/SiteList",
+        "SiteService/SiteUpdate"
+      ]
+    },
+    {
+      "service": "site",
+      "version": "v202211",
+      "stability": "stable",
+      "status": "deprecated",
+      "transport": "rest",
+      "python": "client.site_v202211",
+      "surface": [
+        "SiteService/CreateSite",
+        "SiteService/CreateSiteMarket",
+        "SiteService/DeleteSite",
+        "SiteService/DeleteSiteMarket",
+        "SiteService/GetSite",
+        "SiteService/GetSiteMarket",
+        "SiteService/ListSiteMarkets",
+        "SiteService/ListSites",
+        "SiteService/UpdateSite",
+        "SiteService/UpdateSiteMarket"
+      ]
+    },
+    {
+      "service": "site",
+      "version": "v202509",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.site_v202509",
+      "alias": "client.site",
+      "surface": [
+        "SiteService/CreateSite",
+        "SiteService/CreateSiteMarket",
+        "SiteService/DeleteSite",
+        "SiteService/DeleteSiteMarket",
+        "SiteService/GetSite",
+        "SiteService/GetSiteMarket",
+        "SiteService/ListSiteMarkets",
+        "SiteService/ListSites",
+        "SiteService/UpdateSite",
+        "SiteService/UpdateSiteMarket"
+      ]
+    },
+    {
+      "service": "synthetics",
+      "version": "v202202",
+      "stability": "stable",
+      "status": "deprecated",
       "transport": "grpc",
-      "surface": ["message types only (kentik_api.generated.kentik.core.v202303)"]
+      "python": "kentik_api.KentikAPI.synthetics",
+      "note": "1.x client (KentikSynthClient); version removed from api-schema-public in 702809b",
+      "surface": [
+        "get_all_agents",
+        "get_agent",
+        "update_agent",
+        "delete_agent",
+        "get_all_tests",
+        "get_test",
+        "create_test",
+        "update_test",
+        "delete_test",
+        "set_test_status",
+        "results_for_tests",
+        "trace_for_test"
+      ]
+    },
+    {
+      "service": "synthetics",
+      "version": "v202309",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.synthetics_v202309",
+      "alias": "client.synthetics",
+      "surface": [
+        "SyntheticsAdminService/CreateAgentAlert",
+        "SyntheticsAdminService/CreateTest",
+        "SyntheticsAdminService/DeleteAgent",
+        "SyntheticsAdminService/DeleteAgentAlert",
+        "SyntheticsAdminService/DeleteTest",
+        "SyntheticsAdminService/GetAgent",
+        "SyntheticsAdminService/GetAgentAlert",
+        "SyntheticsAdminService/GetTest",
+        "SyntheticsAdminService/ListAgentAlerts",
+        "SyntheticsAdminService/ListAgents",
+        "SyntheticsAdminService/ListTests",
+        "SyntheticsAdminService/SetTestStatus",
+        "SyntheticsAdminService/UpdateAgent",
+        "SyntheticsAdminService/UpdateAgentAlert",
+        "SyntheticsAdminService/UpdateTest",
+        "SyntheticsDataService/GetResultsForTests",
+        "SyntheticsDataService/GetResultsForTestsCsv",
+        "SyntheticsDataService/GetTraceForTest"
+      ]
+    },
+    {
+      "service": "synthetics",
+      "version": "v20261005alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.synthetics_v20261005alpha1",
+      "surface": [
+        "SyntheticsBulkActionService/BulkUpdateTests",
+        "SyntheticsBulkActionService/GetBulkUpdateTestsStatus"
+      ]
+    },
+    {
+      "service": "user",
+      "version": "v202106alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.user_v202106alpha1",
+      "surface": [
+        "UserService/UserCreate",
+        "UserService/UserDelete",
+        "UserService/UserGet",
+        "UserService/UserList",
+        "UserService/UserUpdate"
+      ]
+    },
+    {
+      "service": "user",
+      "version": "v202211",
+      "stability": "stable",
+      "status": "supported",
+      "transport": "rest",
+      "python": "client.user_v202211",
+      "alias": "client.user",
+      "surface": [
+        "UserService/CreateUser",
+        "UserService/DeleteUser",
+        "UserService/GetUser",
+        "UserService/ListUsers",
+        "UserService/ResetActiveSessions",
+        "UserService/ResetApiToken",
+        "UserService/UpdateUser"
+      ]
+    },
+    {
+      "service": "vault",
+      "version": "v202312alpha1",
+      "stability": "alpha",
+      "status": "experimental",
+      "transport": "rest",
+      "python": "client.experimental.vault_v202312alpha1",
+      "alias": "client.experimental.vault",
+      "surface": [
+        "VaultService/GetSecret",
+        "VaultService/ListSecret"
+      ]
     }
   ],
   "legacy": [
     {
       "api": "v5",
       "status": "deprecated",
+      "python": "kentik_api.KentikAPI",
       "surface": [
-        "alerting", "batch", "custom_applications", "custom_dimensions", "device_labels", "devices",
-        "my_kentik_portal", "plans", "query", "saved_filters", "sites", "tags", "users"
+        "alerting",
+        "batch",
+        "custom_applications",
+        "custom_dimensions",
+        "device_labels",
+        "devices",
+        "my_kentik_portal",
+        "plans",
+        "query",
+        "saved_filters",
+        "sites",
+        "tags",
+        "users"
       ]
     }
   ]

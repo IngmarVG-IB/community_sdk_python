@@ -5,6 +5,8 @@ Stages:
 
 * ``legacy``: protobuf/gRPC stubs in ``kentik_api/generated`` used by the deprecated 1.x
   clients (synthetics v202202, cloud_export v202101beta1).
+* ``v6``: pydantic models, sync/async service wrappers and the client registry in
+  ``kentik_api/v6`` from ``schema/openapiv3``, plus ``kentik-api.json`` (see ``gen_v6.py``).
 
 Run via ``make generate`` (``uv run python scripts/generate.py``). Output is deterministic;
 CI regenerates and fails on ``git diff``.
@@ -75,7 +77,14 @@ def generate_legacy() -> None:
     print(f"legacy: {len(files)} proto files -> {LEGACY_OUT.relative_to(ROOT)}")
 
 
-STAGES = {"legacy": generate_legacy}
+def generate_v6() -> None:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import gen_v6
+
+    gen_v6.generate_v6()
+
+
+STAGES = {"legacy": generate_legacy, "v6": generate_v6}
 
 
 def main() -> None:

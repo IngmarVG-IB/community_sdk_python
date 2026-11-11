@@ -1,0 +1,376 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "kentik/deviceconf/v202511/device_configuration_service.proto",
+        "version": "version not set"
+    },
+    "tags": [
+        {
+            "name": "DeviceConfigurationService"
+        }
+    ],
+    "paths": {},
+    "components": {
+        "schemas": {
+            "protobufAny": {
+                "type": "object",
+                "properties": {
+                    "@type": {
+                        "type": "string"
+                    }
+                },
+                "additionalProperties": {}
+            },
+            "rpcStatus": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "message": {
+                        "type": "string"
+                    },
+                    "details": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/protobufAny"
+                        }
+                    }
+                }
+            },
+            "v202511AclAction": {
+                "type": "string",
+                "enum": [
+                    "ACL_ACTION_UNSPECIFIED",
+                    "ACL_ACTION_ALLOW",
+                    "ACL_ACTION_DENY"
+                ],
+                "default": "ACL_ACTION_UNSPECIFIED",
+                "title": "- ACL_ACTION_ALLOW: Not currently supported"
+            },
+            "v202511AclMode": {
+                "type": "string",
+                "enum": [
+                    "ACL_MODE_UNSPECIFIED",
+                    "ACL_MODE_EXACT",
+                    "ACL_MODE_CONTAINS",
+                    "ACL_MODE_REGEX"
+                ],
+                "default": "ACL_MODE_UNSPECIFIED"
+            },
+            "v202511CommandAcl": {
+                "type": "object",
+                "properties": {
+                    "action": {
+                        "$ref": "#/components/schemas/v202511AclAction"
+                    },
+                    "mode": {
+                        "$ref": "#/components/schemas/v202511AclMode"
+                    },
+                    "filter": {
+                        "type": "string"
+                    }
+                }
+            },
+            "v202511CommandResult": {
+                "type": "object",
+                "properties": {
+                    "success": {
+                        "type": "boolean"
+                    },
+                    "output": {
+                        "type": "string",
+                        "title": "if success is false, contains error message"
+                    }
+                }
+            },
+            "v202511CommitDetails": {
+                "type": "object",
+                "properties": {
+                    "time": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "user": {
+                        "type": "string"
+                    },
+                    "method": {
+                        "type": "string"
+                    },
+                    "comment": {
+                        "type": "string"
+                    }
+                }
+            },
+            "v202511ConfigEncoding": {
+                "type": "string",
+                "enum": [
+                    "CONFIG_ENCODING_UNSPECIFIED",
+                    "CONFIG_ENCODING_PLAIN",
+                    "CONFIG_ENCODING_BZIP2"
+                ],
+                "default": "CONFIG_ENCODING_UNSPECIFIED"
+            },
+            "v202511DeleteDeviceConfigurationResponse": {
+                "type": "object",
+                "properties": {
+                    "orphanedRevision": {
+                        "$ref": "#/components/schemas/v202511Revision"
+                    }
+                }
+            },
+            "v202511Device": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "hostname": {
+                        "type": "string",
+                        "title": "or IP address"
+                    },
+                    "platform": {
+                        "$ref": "#/components/schemas/v202511DevicePlatform"
+                    },
+                    "sshCreds": {
+                        "$ref": "#/components/schemas/v202511DeviceSSHCreds"
+                    },
+                    "fetchParams": {
+                        "$ref": "#/components/schemas/v202511FetchParameters"
+                    }
+                }
+            },
+            "v202511DeviceCommand": {
+                "type": "object",
+                "properties": {
+                    "deviceId": {
+                        "type": "string"
+                    },
+                    "command": {
+                        "type": "string"
+                    }
+                }
+            },
+            "v202511DevicePlatform": {
+                "type": "string",
+                "enum": [
+                    "DEVICE_PLATFORM_UNSPECIFIED",
+                    "DEVICE_PLATFORM_ARISTA_EOS",
+                    "DEVICE_PLATFORM_ARUBA_WLC",
+                    "DEVICE_PLATFORM_CISCO_IOSXE",
+                    "DEVICE_PLATFORM_CISCO_IOSXR",
+                    "DEVICE_PLATFORM_CISCO_NXOS",
+                    "DEVICE_PLATFORM_CISCO_IOS",
+                    "DEVICE_PLATFORM_CUMULUS_LINUX",
+                    "DEVICE_PLATFORM_CUMULUS_VTYSH",
+                    "DEVICE_PLATFORM_HP_COMWARE",
+                    "DEVICE_PLATFORM_HUAWEI_VRP",
+                    "DEVICE_PLATFORM_IPINFUSION_OCNOS",
+                    "DEVICE_PLATFORM_JUNIPER_JUNOS",
+                    "DEVICE_PLATFORM_NOKIA_SRL",
+                    "DEVICE_PLATFORM_NOKIA_SROS",
+                    "DEVICE_PLATFORM_NOKIA_SROS_CLASSIC",
+                    "DEVICE_PLATFORM_PALOALTO_PANOS",
+                    "DEVICE_PLATFORM_RUIJIE_RGOS",
+                    "DEVICE_PLATFORM_VYATTA_VYOS",
+                    "DEVICE_PLATFORM_UBIQUITI_EDGEOS"
+                ],
+                "default": "DEVICE_PLATFORM_UNSPECIFIED"
+            },
+            "v202511DeviceSSHCreds": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string"
+                    },
+                    "privateKey": {
+                        "type": "string"
+                    },
+                    "passphrase": {
+                        "type": "string",
+                        "title": "used as password if private_key is empty"
+                    }
+                }
+            },
+            "v202511ExecuteCommandResponse": {
+                "type": "object",
+                "properties": {
+                    "commandResult": {
+                        "$ref": "#/components/schemas/v202511CommandResult"
+                    }
+                }
+            },
+            "v202511FetchParameters": {
+                "type": "object",
+                "properties": {
+                    "fetchInterval": {
+                        "type": "string",
+                        "description": "How often the device should be fetched."
+                    },
+                    "fetchTimeout": {
+                        "type": "string",
+                        "description": "Maximum time allowed for a single fetch attempt.\nIf unset or set to 0s, the server default timeout is used.\nThis value should be less than or equal to fetch_interval."
+                    }
+                }
+            },
+            "v202511GetCommandAclsResponse": {
+                "type": "object",
+                "properties": {
+                    "acls": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v202511CommandAcl"
+                        }
+                    }
+                }
+            },
+            "v202511GetDeviceAssignmentsResponse": {
+                "type": "object",
+                "properties": {
+                    "devices": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v202511Device"
+                        }
+                    }
+                }
+            },
+            "v202511GetDeviceConfigurationResponse": {
+                "type": "object",
+                "properties": {
+                    "config": {
+                        "$ref": "#/components/schemas/v202511Snapshot"
+                    }
+                }
+            },
+            "v202511GetLatestDeviceConfigurationsResponse": {
+                "type": "object",
+                "properties": {
+                    "configs": {
+                        "type": "object",
+                        "additionalProperties": {
+                            "$ref": "#/components/schemas/v202511Snapshot"
+                        },
+                        "description": "Map from device ID to latest configuration."
+                    }
+                }
+            },
+            "v202511ListDeviceConfigurationRevisionsResponse": {
+                "type": "object",
+                "properties": {
+                    "revisions": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/v202511Revision"
+                        }
+                    }
+                }
+            },
+            "v202511MessageSignature": {
+                "type": "object",
+                "properties": {
+                    "signerId": {
+                        "type": "string"
+                    },
+                    "algorithm": {
+                        "$ref": "#/components/schemas/v202511SignatureAlgorithm"
+                    },
+                    "signature": {
+                        "type": "string",
+                        "format": "byte"
+                    }
+                }
+            },
+            "v202511RequestDeviceConfigurationFetchResponse": {
+                "type": "object"
+            },
+            "v202511Revision": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "title": "incremented for each different configuration fetched from the device"
+                    },
+                    "lastFetched": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "firstFetched": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "deviceId": {
+                        "type": "string"
+                    }
+                },
+                "title": "TODO: I somewhat regret embedding \"Revision\" inside \"Snapshot\".\nBeing embedded means that any time we add something to Revision, it affects\nSnapshot as well. For example, when we added device_id to Revision, it\nmeant that now Snapshot has device_id in two places (top-level and inside\nRevision). At some point we should probably flatten these fields into the\ntop-level Snapshot message and deprecate the embedded Revision message. (Or\nbreak the coupling between Snapshot and List Revisions some other way.)"
+            },
+            "v202511SignatureAlgorithm": {
+                "type": "string",
+                "enum": [
+                    "SIGNATURE_ALGORITHM_UNSPECIFIED",
+                    "SIGNATURE_ALGORITHM_ECDSA_SHA256"
+                ],
+                "default": "SIGNATURE_ALGORITHM_UNSPECIFIED"
+            },
+            "v202511Snapshot": {
+                "type": "object",
+                "properties": {
+                    "agentId": {
+                        "type": "string",
+                        "title": "Agent that fetched the configuration"
+                    },
+                    "deviceId": {
+                        "type": "string"
+                    },
+                    "revision": {
+                        "$ref": "#/components/schemas/v202511Revision"
+                    },
+                    "fetchError": {
+                        "type": "boolean",
+                        "title": "error message is in config_data if true"
+                    },
+                    "encoding": {
+                        "$ref": "#/components/schemas/v202511ConfigEncoding"
+                    },
+                    "configData": {
+                        "type": "string",
+                        "format": "byte"
+                    },
+                    "digest": {
+                        "type": "string",
+                        "title": "SHA256 digest of config_data"
+                    },
+                    "diffData": {
+                        "type": "string",
+                        "format": "byte"
+                    },
+                    "diffRevision": {
+                        "$ref": "#/components/schemas/v202511Revision"
+                    },
+                    "firstFetched": {
+                        "type": "string",
+                        "format": "date-time",
+                        "title": "Deprecated: use revision.first_fetched instead"
+                    },
+                    "commitDetails": {
+                        "$ref": "#/components/schemas/v202511CommitDetails"
+                    },
+                    "platform": {
+                        "$ref": "#/components/schemas/v202511DevicePlatform"
+                    }
+                }
+            },
+            "v202511UpdateCommandAclsResponse": {
+                "type": "object"
+            },
+            "v202511UpdateDeviceConfigurationResponse": {
+                "type": "object"
+            }
+        }
+    }
+}

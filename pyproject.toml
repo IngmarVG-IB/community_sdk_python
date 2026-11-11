@@ -27,6 +27,9 @@ classifiers = [
 ]
 dynamic = ["version"]
 dependencies = [
+    # v6 client (kentik_api.v6)
+    "httpx>=0.28",
+    "pydantic>=2.11",
     # legacy 1.x clients (v5 REST, synthetics v202202 / cloud_export v202101beta1 over gRPC)
     "dacite>=1.8",
     "requests[socks]>=2.32.4",
@@ -59,6 +62,8 @@ dev = [
     "types-protobuf>=6.30",
     "types-requests>=2.32",
     "types-PyYAML>=6.0.12",
+    "datamodel-code-generator==0.92.0",
+    "respx>=0.22",
 ]
 
 [tool.uv]
@@ -101,6 +106,9 @@ ignore = [
 "tests/{unit,integration,library,e2e}/**" = ["UP", "B", "BLE", "S", "PIE", "RUF", "F401", "F403", "F405", "E712", "E741"]
 "examples/**" = ["UP", "B", "BLE", "S", "PIE", "RUF", "F401", "E741", "T201"]
 "scripts/**" = ["S603", "S607"]
+# generated from the schema: names and docstrings come from the protos
+"kentik_api/v6/services/**" = ["S105", "W291", "E501", "RUF001", "RUF002", "RUF003"]
+"tests/v6/**" = ["S105", "S106"]
 
 [tool.mypy]
 # Strict on code added in 2.x (kentik_api.v6, scripts, tests/v6). The 1.x code base is frozen and
@@ -144,5 +152,9 @@ module = ["httpretty.*", "pandas.*", "fastparquet.*", "grpc.*", "grpc_tools.*", 
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests/integration", "tests/unit", "tests/tooling"]
+testpaths = ["tests/integration", "tests/unit", "tests/tooling", "tests/v6"]
 addopts = "-ra"
+filterwarnings = [
+    # 1.x tests exercise the deprecated client on purpose; tests/v6 asserts the warning explicitly
+    "ignore:kentik_api.KentikAPI is deprecated:DeprecationWarning",
+]

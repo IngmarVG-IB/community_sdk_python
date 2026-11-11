@@ -6,6 +6,29 @@ All notable changes to this project are documented here. The format is based on
 
 ## [Unreleased]
 
+### Added
+- **v6 client** `kentik_api.KentikClient` and its async twin `kentik_api.AsyncKentikClient` (REST over
+  grpc-gateway, httpx + pydantic v2), generated from api-schema-public `gen/openapiv3` at `5d1d2fa`:
+  - every stable service version as `client.<service>_<version>` (22 versions, e.g. `client.synthetics_v202309`,
+    `client.cloud_export_v202506`, `client.site_v202509`), with `client.<service>` aliases to the newest stable
+    version; 28 alpha/beta versions under `client.experimental`; 317 operations in total;
+  - auth via `X-CH-Auth-Email`/`X-CH-Auth-API-Token` (arguments or `KTAPI_AUTH_EMAIL`/`KTAPI_AUTH_TOKEN`),
+    US/EU region presets or a custom `base_url`, timeouts (client-wide and per call), proxy support;
+  - retries with exponential backoff and full jitter: 429 for every call (honouring `Retry-After`), 5xx and
+    transport errors for idempotent calls only;
+  - typed errors (`BadRequestError`, `AuthenticationError`, `PermissionDeniedError`, `NotFoundError`,
+    `ConflictError`, `RateLimitError`, `ServerError`, `APIConnectionError`, `APITimeoutError`,
+    `ResponseValidationError`) carrying HTTP status, gRPC code, service, method and request id;
+  - `iter_*` pagination helpers for offset/limit list RPCs; debug logging on the `kentik_api.v6` logger;
+  - forward-compatible models: unknown fields kept, open enums, all fields optional;
+  - `py.typed`.
+- `scripts/generate.py` v6 stage (`scripts/gen_v6.py`) generates models, service wrappers, the client registry
+  and `kentik-api.json`; vendored schema in `schema/openapiv3`.
+
+### Deprecated
+- `kentik_api.KentikAPI` (v5 REST, synthetics v202202, cloud_export v202101beta1) now emits a
+  `DeprecationWarning` when instantiated. It keeps working.
+
 ### Changed
 - Packaging moved to `pyproject.toml` with the hatchling backend and hatch-vcs versioning; `setup.py`,
   `requirements.txt` and `requirements-dev.txt` are removed. Development uses uv with a committed `uv.lock`.
